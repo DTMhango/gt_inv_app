@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="card col-sm-2">
+            <form method="POST" action="">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Your Form Has Errors!
+                        {% for field in form %}
+                            {% if field.errors %}
+                                {{ field.errors }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                {{ form.as_p }}
+
+                <br/>
+                <button type="submit" class="btn btn-success">Set Valuation Date</button>
+            </form>
+        </div>
+        <div class="card col-md-8 offset-md-1">
+            <h5 class="card-header">ECL Metrics Summary:</h5>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">As At {{ valuation_date }}</th>
+                        <th scope="col">Government Bonds</th>
+                        <th scope="col">Treasury Bills</th>
+                        <th scope="col">Corporate Bonds</th>
+                        <th scope="col">Fixed Deposits</th>
+                        <th scope="col">GRAND TOTAL</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Total No. Investments:</strong></td>
+                            <td><strong>{{ total_bond_data.count }}</strong></td>
+                            <td><strong>{{ total_t_bill_data.count }}</strong></td>
+                            <td><strong>{{ total_c_bond_data.count }}</strong></td>
+                            <td><strong>{{ total_fd_data.count }}</strong></td>
+                            <td><strong>{{ total_all_data.count }}</strong></td>
+                          </tr>
+                        
+                        <tr>
+                            <td><strong>EAD:</strong></td>
+                            <td><strong>{{ total_bond_data.EAD|floatformat:2|intcomma }}</strong></td>
+                            <td><strong>{{ total_t_bill_data.EAD|floatformat:2|intcomma }}</strong></td>
+                            <td><strong>{{ total_c_bond_data.EAD|floatformat:2|intcomma }}</strong></td>
+                            <td><strong>{{ total_fd_data.EAD|floatformat:2|intcomma }}</strong></td>
+                            <td><strong>{{ total_all_data.EAD|floatformat:2|intcomma}}</strong></td>
+                        </tr>
+
+                      <tr>
+                        <td><strong>Average PD:</strong></td>
+                        <td><strong>{{ total_bond_data.PD|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_t_bill_data.PD|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_c_bond_data.PD|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_fd_data.PD|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_all_data.PD|floatformat:2|intcomma }}</strong></td>
+                      </tr>
+
+                      <tr>
+                        <td><strong>Average LGD:</strong></td>
+                        <td><strong>{{ total_bond_data.LGD|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_t_bill_data.LGD|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_c_bond_data.LGD|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_fd_data.LGD|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_all_data.LGD|floatformat:2|intcomma }}</strong></td>
+                      </tr>
+
+                      <tr>
+                        <td><strong>ECL:</strong></td>
+                        <td><strong>{{ total_bond_data.ECL|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_t_bill_data.ECL|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_c_bond_data.ECL|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_fd_data.ECL|floatformat:2|intcomma }}</strong></td>
+                        <td><strong>{{ total_all_data.ECL|floatformat:2|intcomma }}</strong></td>
+                      </tr>
+
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+
+                      <tr>
+                        <td><strong>ZMW Investments:</strong></td>
+                        <td>{{ bond_data.zmw.count }}</td>
+                        <td>{{ t_bill_data.zmw.count }}</td>
+                        <td>{{ c_bond_data.zmw.count }}</td>
+                        <td>{{ fd_data.zmw.count }}</td>
+                        <td>{{ all_data.zmw.count }}</td>
+                      </tr>
+
+                      <tr>
+                        <td>EAD:</td>
+                        <td>{{ bond_data.zmw.EAD|floatformat:2|intcomma }}</td>
+                        <td>{{ t_bill_data.zmw.EAD|floatformat:2|intcomma }}</td>
+                        <td>{{ c_bond_data.zmw.EAD|floatformat:2|intcomma }}</td>
+                        <td>{{ fd_data.zmw.EAD|floatformat:2|intcomma }}</td>
+                        <td>{{ all_data.zmw.EAD|floatformat:2|intcomma }}</td>
+                      </tr>
+
+                      <tr>
+                        <td>Average PD:</td>
+                        <td>{{ bond_data.zmw.PD|floatformat:2|intcomma }}</td>
+                        <td>{{ t_bill_data.zmw.PD|floatformat:2|intcomma }}</td>
+                        <td>{{ c_bond_data.zmw.PD|floatformat:2|intcomma }}</td>
+                        <td>{{ fd_data.zmw.PD|floatformat:2|intcomma }}</td>
+                        <td>{{ all_data.zmw.PD|floatformat:2|intcomma }}</td>
+                      </tr>
+
+                      <tr>
+                        <td>Average LGD:</td>
+                        <td>{{ bond_data.zmw.LGD|floatformat:2|intcomma }}</td>
+                        <td>{{ t_bill_data.zmw.LGD|floatformat:2|intcomma }}</td>
+                        <td>{{ c_bond_data.zmw.LGD|floatformat:2|intcomma }}</td>
+                        <td>{{ fd_data.zmw.LGD|floatformat:2|intcomma }}</td>
+                        <td>{{ all_data.zmw.LGD|floatformat:2|intcomma }}</td>
+                      </tr>
+
+                      <tr>
+                        <td>ECL:</td>
+                        <td>{{ bond_data.zmw.ECL|floatformat:2|intcomma }}</td>
+                        <td>{{ t_bill_data.zmw.ECL|floatformat:2|intcomma }}</td>
+                        <td>{{ c_bond_data.zmw.ECL|floatformat:2|intcomma }}</td>
+                        <td>{{ fd_data.zmw.ECL|floatformat:2|intcomma }}</td>
+                        <td>{{ all_data.zmw.ECL|floatformat:2|intcomma }}</td>
+                      </tr>
+
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+
+                      <tr>
+                        <td><strong>USD Investments:</strong></td>
+                        <td>{{ bond_data.usd.count }}</td>
+                        <td>{{ t_bill_data.usd.count }}</td>
+                        <td>{{ c_bond_data.usd.count }}</td>
+                        <td>{{ fd_data.usd.count }}</td>
+                        <td>{{ all_data.usd.count }}</td>
+                      </tr>
+
+                      <tr>
+                        <td>EAD:</td>
+                        <td>{{ bond_data.usd.EAD|floatformat:2|intcomma }}</td>
+                        <td>{{ t_bill_data.usd.EAD|floatformat:2|intcomma }}</td>
+                        <td>{{ c_bond_data.usd.EAD|floatformat:2|intcomma }}</td>
+                        <td>{{ fd_data.usd.EAD|floatformat:2|intcomma }}</td>
+                        <td>{{ all_data.usd.EAD|floatformat:2|intcomma }}</td>
+                      </tr>
+
+                      <tr>
+                        <td>Average PD:</td>
+                        <td>{{ bond_data.usd.PD|floatformat:2|intcomma }}</td>
+                        <td>{{ t_bill_data.usd.PD|floatformat:2|intcomma }}</td>
+                        <td>{{ c_bond_data.usd.PD|floatformat:2|intcomma }}</td>
+                        <td>{{ fd_data.usd.PD|floatformat:2|intcomma }}</td>
+                        <td>{{ all_data.usd.PD|floatformat:2|intcomma }}</td>
+                      </tr>
+
+                      <tr>
+                        <td>Average LGD:</td>
+                        <td>{{ bond_data.usd.LGD|floatformat:2|intcomma }}</td>
+                        <td>{{ t_bill_data.usd.LGD|floatformat:2|intcomma }}</td>
+                        <td>{{ c_bond_data.usd.LGD|floatformat:2|intcomma }}</td>
+                        <td>{{ fd_data.usd.LGD|floatformat:2|intcomma }}</td>
+                        <td>{{ all_data.usd.LGD|floatformat:2|intcomma }}</td>
+                      </tr>
+
+                      <tr>
+                        <td>ECL:</td>
+                        <td>{{ bond_data.usd.ECL|floatformat:2|intcomma }}</td>
+                        <td>{{ t_bill_data.usd.ECL|floatformat:2|intcomma }}</td>
+                        <td>{{ c_bond_data.usd.ECL|floatformat:2|intcomma }}</td>
+                        <td>{{ fd_data.usd.ECL|floatformat:2|intcomma }}</td>
+                        <td>{{ all_data.usd.ECL|floatformat:2|intcomma }}</td>
+                      </tr>
+
+                    </tbody>
+                  </table><br>
+                
+                  <a href="#" class="btn btn-success">Download CSV</a> 
+                  <a href="#" class="btn btn-success">Download Excel</a>
+              
+            </div>
+        </div>
+    </div>
+    <br>
+    <a href="{% url 'home' %}" class="btn btn-primary offset-md-3">Back <</a>
+</div>
+{% endblock %}
+

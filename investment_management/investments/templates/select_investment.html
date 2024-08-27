@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">Select the type of Investment to add:</div>
+        <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-sm-3">
+                <div class="card equal-height-set2">
+                    <a href="{% url 'add_govt_bond' %}"><img src="{% static 'government_bond.jpg' %}" class="card-img-top" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Government Bonds</h5>
+                        <p class="card-text">A debt instrument issued by the Government of Zambia through Bank of Zambia; generally with a promise to pay periodic interest payments, and to repay the face value on the maturity date.</p>
+                        <a href="{% url 'add_govt_bond' %}" class="btn btn-primary mt-auto">Add Govt. Bond >>></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card equal-height-set2">
+                    <a href="{% url 'add_t_bill' %}"><img src="{% static 'treasury_bill.jpg' %}" class="card-img-top" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Treasury Bills</h5>
+                        <p class="card-text">A treasury bill is a short term instrument that the Zambian Government issues in order to borrow money through Bank of Zambia for a period of one year or less.</p>
+                        <a href="{% url 'add_t_bill' %}" class="btn btn-primary mt-auto">Add Treasury Bill >>></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card equal-height-set2">
+                    <a href="{% url 'add_corporate_bond' %}"><img src="{% static 'corporate_bond.jpg' %}" class="card-img-top" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Corporate Bonds</h5>
+                        <p class="card-text">Debt securities issued by a corporation in order to raise money to grow the business, pay bills, make capital improvements, make acquisitions, and for other business needs.</p>
+                        <a href="{% url 'add_corporate_bond' %}" class="btn btn-primary mt-auto">Add Corporate Bond >>></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card equal-height-set2">
+                    <a href="{% url 'add_fixed_deposit' %}"><img src="{% static 'fixed_deposit.jpg' %}" class="card-img-top" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Fixed Deposits</h5>
+                        <p class="card-text">A fixed deposit is a tenured deposit account provided by banks or non-bank financial institutions which provides investors a higher rate of interest than a regular savings account, until the given maturity date.</p>
+                        <a href="{% url 'add_fixed_deposit' %}" class="btn btn-primary mt-auto">Add Fixed Deposit >>></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><br>
+    <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+{% endblock%}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="card col-md-4 offset-md-4 bg-light">
+    <div class="card-body">
+    <div class="col-md-8 offset-md-2 ">
+        <div class="text-center">
+            <img src="{% static 'gralix_logo_1.png' %}" class="rounded" height="100">
+            <br/>
+            <br/>
+            <h1>Register!</h1><br/>
+        </div>            
+        <form method="POST" action="">
+            {% csrf_token %}
+            {% if form.errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Your Form Has Errors!
+                    {% for field in form %}
+                        {% if field.errors %}
+                            {{ field.errors }}
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+            
+            {{ form.as_p }}
+
+            <br/>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+    </div>
+</div>
+{% endblock content %}

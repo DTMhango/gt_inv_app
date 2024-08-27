@@ -1,0 +1,35 @@
+.navbar {
+    background: linear-gradient(135deg, #012549, #8abdf8);
+}
+.navbar .nav-link {
+    color: white !important;
+}
+
+.equal-height-set1,
+.equal-height-set2 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.equal-height-set1 .card-body,
+.equal-height-set2 .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.equal-height-set1 img {
+    height: 350px;
+    object-fit: cover;
+}
+
+.equal-height-set2 img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.equal-height-set1 .btn,
+.equal-height-set2 .btn {
+    margin-top: auto; /* Ensures the button is pushed to the bottom */
+}

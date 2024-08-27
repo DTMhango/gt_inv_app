@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        Table of Corporate Bonds:
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-bordered table-sm table-hover caption-top">
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <a href="{% url 'add_corporate_bond' %}" class="btn btn-primary">Add New Corporate Bond</a>
+                </div>
+                <div class="col-md-8 text-end">
+                    <a href="{% url 'download_model_csv' 'corporatebond' %}" class="btn btn-success">Download CSV</a>
+                
+                    <a href="{% url 'download_model_excel' 'corporatebond' %}" class="btn btn-success">Download Excel</a>
+                </div>
+            </div>
+
+            <thead class="table-light text-muted">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Bond ID</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">Maturity Date</th>
+                <th scope="col">Principal Amount</th>
+                <th scope="col">Interest Rate</th>
+                <th scope="col">Currency</th>
+                <th scope="col">Counterparty</th>
+                <th scope="col">Bond Rating</th>
+                <th scope="col">Manager</th>                
+            </tr>
+            </thead>
+            <tbody>
+                {% if page_obj %}
+                    {% for corporate_bond in page_obj %}
+                        <tr>
+                            <td>{{ corporate_bond.id }}</td>
+                            <td>{{ corporate_bond.bond_id }}</td>
+                            <td>{{ corporate_bond.start_date }}</td>
+                            <td>{{ corporate_bond.maturity_date }}</td>
+                            <td>{{ corporate_bond.principal_amount|intcomma }}</td>
+                            <td>{{ corporate_bond.interest_rate }}</td> 
+                            <td>{{ corporate_bond.currency }}</td>
+                            <td>{{ corporate_bond.get_counterparty_display }}</td>
+                            <td>{{ corporate_bond.bond_rating }}</td>
+                            <td>{{ corporate_bond.get_manager_full_name }}</td>  
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="10">No Corporate Bonds available.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">&laquo; first</span></li>
+                    <li class="page-item disabled"><span class="page-link">previous</span></li>
+                {% endif %}
+                <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">next</span></li>
+                    <li class="page-item disabled"><span class="page-link">last &raquo;</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div><br>
+<a href="{% url 'home' %}" class="btn btn-primary">Home <</a>
+{% endblock %}

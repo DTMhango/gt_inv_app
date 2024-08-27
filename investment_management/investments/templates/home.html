@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
+            <div class="card equal-height-set1">
+                <a href="{% url 'select_investment' %}"><img src="{% static 'investment_meeting.jpg' %}" class="card-img-top" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title">Add New Investments</h5>
+                    <p class="card-text">What new Investments have you undertaken? Choose from the list of valid Investments to add to the portfolio.</p>
+                    <a href="{% url 'select_investment' %}" class="btn btn-primary mt-auto">Add Investments >>></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card equal-height-set1">
+                <a href="{% url 'expected_returns' %}"><img src="{% static 'investment_growth.jpg' %}" class="card-img-top" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title">Expected Returns</h5>
+                    <p class="card-text">Monitor the expected performance of your investments to date.</p>
+                    <a href="{% url 'expected_returns' %}" class="btn btn-primary mt-auto">Monitor Returns >>></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card equal-height-set1">
+                <a href="{% url 'ecl_metrics' %}"><img src="{% static 'investment_ecl.jpg' %}" class="card-img-top" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title">Expected Credit Loss</h5>
+                    <p class="card-text">View the expected credit loss (ECL) as at the selected financial reporting date.</p>
+                    <a href="{% url 'ecl_metrics' %}" class="btn btn-primary mt-auto">View ECL as at...>>></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
