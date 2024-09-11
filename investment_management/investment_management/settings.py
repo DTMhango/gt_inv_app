@@ -76,13 +76,9 @@ WSGI_APPLICATION = 'investment_management.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "picz",
-        "USER": "postgres",
-        "PASSWORD": "Tiwonge1998@BC.Net",
-        "HOST": "localhost",
-        "PORT": "5432",
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
     }
 }
 
